@@ -1,0 +1,71 @@
+include "/usr/share/nano/asm.nanorc"
+include "/usr/share/nano/awk.nanorc"
+include "/usr/share/nano/c.nanorc"
+include "/usr/share/nano/cmake.nanorc"
+include "/usr/share/nano/css.nanorc"
+include "/usr/share/nano/debian.nanorc"
+include "/usr/share/nano/fortran.nanorc"
+include "/usr/share/nano/gentoo.nanorc"
+include "/usr/share/nano/groff.nanorc"
+include "/usr/share/nano/html.nanorc"
+include "/usr/share/nano/java.nanorc"
+include "/usr/share/nano/makefile.nanorc"
+include "/usr/share/nano/man.nanorc"
+include "/usr/share/nano/mgp.nanorc"
+include "/usr/share/nano/mutt.nanorc"
+include "/usr/share/nano/nanorc.nanorc"
+include "/usr/share/nano/objc.nanorc"
+include "/usr/share/nano/ocaml.nanorc"
+include "/usr/share/nano/patch.nanorc"
+include "/usr/share/nano/perl.nanorc"
+include "/usr/share/nano/php.nanorc"
+include "/usr/share/nano/pov.nanorc"
+include "/usr/share/nano/python.nanorc"
+include "/usr/share/nano/ruby.nanorc"
+include "/usr/share/nano/sh.nanorc"
+include "/usr/share/nano/tcl.nanorc"
+include "/usr/share/nano/tex.nanorc"
+include "/usr/share/nano/xml.nanorc"
+
+set autoindent
+set const
+set cut
+set morespace
+#set mouse
+set multibuffer
+set nohelp
+set nonewlines
+set nowrap
+set preserve
+set rebindkeypad
+set smarthome
+set smooth
+set suspend
+set tabsize 4
+
+bind	^A	mark		main
+bind	^C	copytext	main
+bind	^F	whereis		all
+bind	^G	gotoline	main
+#bind	^I	indent		main
+bind	^M	enter		main
+bind	^N	insert		main
+bind	^O	insert		main
+bind	^Q	cancel		all
+bind	^Q	exit		main
+bind	^S	writeout	main
+bind	^R	replace		all
+bind	^W	cancel		all
+bind	^W	exit		main
+bind	^V	uncut		main
+bind	^X	cut			main
+bind	M-Y	redo		main
+bind	M-Z	undo		main
+bind	^]	findbracket	main
+
+bind	F1	nohelp		main
+bind	F2	help		main
+bind	F3	searchagain	main
+bind	F5	refresh		all
+bind	F12	suspend		all
+

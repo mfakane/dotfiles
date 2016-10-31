@@ -1,0 +1,5 @@
+alias ls='ls -AlFh --group-directories-first --color=auto'
+alias df='df -h'
+alias free='free -h'
+alias crontab='crontab -i'
+alias jobs='jobs -l'
