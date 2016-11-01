@@ -24,6 +24,23 @@ WEAKLINE_VCS_FOREGROUND=black
 WEAKLINE_INDICATOR_BACKGROUND=white
 WEAKLINE_INDICATOR_FOREGROUND=black
 
+WEAKLINE_SEGMENTS=(
+	"weakline_beginprompt"
+	"weakline_context"
+	"weakline_dir"
+	"weakline_vcs"
+	"weakline_endprompt"
+	"echo"
+	"weakline_beginprompt"
+	"weakline_indicator"
+	"weakline_endprompt"
+)
+WEAKLINE_RSEGMENTS=(
+	"weakline_beginprompt"
+	"weakline_duration"
+	"weakline_endprompt"
+)
+
 WEAKLINE_LAST_BACKGROUND=""
 WEAKLINE_DURATION=0
 
@@ -126,23 +143,6 @@ function weakline_duration() {
 
 	weakline_write_segment "$hours$mins$secs" white black
 }
-
-WEAKLINE_SEGMENTS=(
-	"weakline_beginprompt"
-	"weakline_context"
-	"weakline_dir"
-	"weakline_vcs"
-	"weakline_endprompt"
-	"echo"
-	"weakline_beginprompt"
-	"weakline_indicator"
-	"weakline_endprompt"
-)
-WEAKLINE_RSEGMENTS=(
-	"weakline_beginprompt"
-	"weakline_duration"
-	"weakline_endprompt"
-)
 
 PROMPT="\$(WEAKLINE_ISRPROMPT=0 ${(j:; WEAKLINE_ISRPROMPT=0 :)WEAKLINE_SEGMENTS}) "
 PROMPT2=`echo -n "%K{white}%F{black} %_ %f%k${WEAKLINE_ICONS[LEFT_SEPARATOR]} "`
