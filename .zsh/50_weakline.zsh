@@ -83,7 +83,7 @@ add-zsh-hook precmd _weakline_precmd
 function weakline_write_segment() {
 	if ! [[ -z $WEAKLINE_LAST_BACKGROUND ]]; then
 		if [[ $WEAKLINE_ISRPROMPT != 0 ]]; then
-			echo -n "%K{$2}%F{$WEAKLINE_LAST_BACKGROUND}${WEAKLINE_ICONS[RIGHT_SEPARATOR]}%f$k"
+			echo -n "%K{$WEAKLINE_LAST_BACKGROUND}%F{$2}${WEAKLINE_ICONS[RIGHT_SEPARATOR]}%f$k"
 		else
 			echo -n "%K{$2}%F{$WEAKLINE_LAST_BACKGROUND}${WEAKLINE_ICONS[LEFT_SEPARATOR]}%f$k"
 		fi
