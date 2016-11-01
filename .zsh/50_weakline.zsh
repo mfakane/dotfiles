@@ -43,9 +43,11 @@ function _weakline_preexec() {
 function _weakline_precmd() {
 	LANG=C vcs_info
 	
-	if ! [[ -z $WEAKLINE_TIMER ]]; then
+	if [[ -n $WEAKLINE_TIMER ]]; then
 		WEAKLINE_DURATION=$(($SECONDS - $WEAKLINE_TIMER))
-		unset $WEAKLINE_TIMER
+		unset WEAKLINE_TIMER
+	else
+		WEAKLINE_DURATION=0
 	fi
 }
 
