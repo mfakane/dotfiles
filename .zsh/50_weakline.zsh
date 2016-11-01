@@ -26,6 +26,8 @@ WEAKLINE_VCS_CHANGED_BACKGROUND=yellow
 WEAKLINE_VCS_FOREGROUND=black
 WEAKLINE_INDICATOR_BACKGROUND=white
 WEAKLINE_INDICATOR_FOREGROUND=black
+WEAKLINE_RETVAL_ERROR_BACKGROUND=red
+WEAKLINE_RETVAL_ERROR_FOREGROUND=yellow
 
 WEAKLINE_SEGMENTS=(
 	"weakline_beginprompt"
@@ -40,12 +42,14 @@ WEAKLINE_SEGMENTS=(
 )
 WEAKLINE_RSEGMENTS=(
 	"weakline_beginprompt"
+	"weakline_retval"
 	"weakline_duration"
 	"weakline_endprompt"
 )
 
 WEAKLINE_LAST_BACKGROUND=""
 WEAKLINE_DURATION=0
+WEAKLINE_RETVAL=0
 
 setopt prompt_subst
 autoload -Uz add-zsh-hook
@@ -61,6 +65,8 @@ function _weakline_preexec() {
 }
 
 function _weakline_precmd() {
+	WEAKLINE_RETVAL=$?
+
 	LANG=C vcs_info
 	
 	if [[ -n $WEAKLINE_TIMER ]]; then
@@ -151,6 +157,12 @@ function weakline_duration() {
 	[[ $hours > 0 ]] && hours="${hours}h" || hours=""
 
 	weakline_write_segment "$hours$mins$secs" white black
+}
+
+function weakline_retval() {
+	if [[ $WEAKLINE_RETVAL != 0 ]]; then
+		weakline_write_segment "$WEAKLINE_RETVAL" $WEAKLINE_RETVAL_ERROR_BACKGROUND $WEAKLINE_RETVAL_ERROR_FOREGROUND;
+	fi
 }
 
 PROMPT="\$(WEAKLINE_ISRPROMPT=0;${(j:;:)WEAKLINE_SEGMENTS}) "
