@@ -28,7 +28,7 @@ zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 	}
 	
 	function precmd() {
-		if [[ $CUSTOM_9K_TIMER ]]; then
+		if [[ ! -z "$CUSTOM_9K_TIMER" ]]; then
 			CUSTOM_9K_DURATION=$(($SECONDS - $CUSTOM_9K_TIMER))
 			unset CUSTOM_9K_TIMER
 		fi
