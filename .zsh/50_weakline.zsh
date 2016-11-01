@@ -26,6 +26,8 @@ WEAKLINE_VCS_CHANGED_BACKGROUND=yellow
 WEAKLINE_VCS_FOREGROUND=black
 WEAKLINE_INDICATOR_BACKGROUND=white
 WEAKLINE_INDICATOR_FOREGROUND=black
+WEAKLINE_DURATION_BACKGROUND=white
+WEAKLINE_DURATION_FOREGROUND=black
 WEAKLINE_RETVAL_ERROR_BACKGROUND=red
 WEAKLINE_RETVAL_ERROR_FOREGROUND=yellow
 
@@ -156,7 +158,7 @@ function weakline_duration() {
 	[[ $mins > 0 ]] && mins="${mins}m " || mins=""
 	[[ $hours > 0 ]] && hours="${hours}h" || hours=""
 
-	weakline_write_segment "$hours$mins$secs" white black
+	weakline_write_segment "$hours$mins$secs" $WEAKLINE_DURATION_BACKGROUND $WEAKLINE_DURATION_FOREGROUND
 }
 
 function weakline_retval() {
