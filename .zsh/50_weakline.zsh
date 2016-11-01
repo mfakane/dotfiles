@@ -119,7 +119,17 @@ function weakline_indicator() {
 }
 
 function weakline_duration() {
-	weakline_write_rsegment "$(pretty-time.zsh $WEAKLINE_DURATION)" white black
+	time=$WEAKLINE_DURATION
+	
+	secs=$((time % 60))
+	mins=$((time / 60 % 60))
+	hours=$((time / 3600))
+	
+	secs="${secs}s"
+	[[ $mins > 0 ]] && mins="${mins}m " || mins=""
+	[[ $hours > 0 ]] && hours="${hours}h" || hours=""
+
+	weakline_write_rsegment "$hours$mins$secs" white black
 }
 
 WEAKLINE_SEGMENTS=(
