@@ -56,17 +56,12 @@ add-zsh-hook precmd _weakline_precmd
 
 function weakline_write_segment() {
 	if ! [[ -z $WEAKLINE_LAST_BACKGROUND ]]; then
-		echo -n "%K{$2}%F{$WEAKLINE_LAST_BACKGROUND}${WEAKLINE_ICONS[LEFT_SEPARATOR]}%f$k"
-	fi
-	
-	echo -n "%K{$2}%F{$3} $1 %f%k"
-	WEAKLINE_LAST_BACKGROUND=$2
-}
-
-function weakline_write_rsegment() {
-	if ! [[ -z $WEAKLINE_LAST_BACKGROUND ]]; then
-		echo -n "%K{$2}%F{$WEAKLINE_LAST_BACKGROUND}${WEAKLINE_ICONS[RIGHT_SEPARATOR]}%f$k"
-	else
+		if [[ $WEAKLINE_ISRPROMPT != 0 ]]; then
+			echo -n "%K{$2}%F{$WEAKLINE_LAST_BACKGROUND}${WEAKLINE_ICONS[RIGHT_SEPARATOR]}%f$k"
+		else
+			echo -n "%K{$2}%F{$WEAKLINE_LAST_BACKGROUND}${WEAKLINE_ICONS[LEFT_SEPARATOR]}%f$k"
+		fi
+	elif [[ $WEAKLINE_ISRPROMPT != 0 ]]; then
 		echo -n "%F{$2}${WEAKLINE_ICONS[RIGHT_SEPARATOR]}%f"
 	fi
 	
@@ -79,7 +74,7 @@ function weakline_beginprompt() {
 }
 
 function weakline_endprompt() {
-	if [[ -n $WEAKLINE_LAST_BACKGROUND ]]; then
+	if [[ $WEAKLINE_ISRPROMPT == 0 ]] && [[ -n $WEAKLINE_LAST_BACKGROUND ]]; then
 		echo -n "%F{$WEAKLINE_LAST_BACKGROUND}${WEAKLINE_ICONS[LEFT_SEPARATOR]}%f"
 	fi
 }
@@ -129,7 +124,7 @@ function weakline_duration() {
 	[[ $mins > 0 ]] && mins="${mins}m " || mins=""
 	[[ $hours > 0 ]] && hours="${hours}h" || hours=""
 
-	weakline_write_rsegment "$hours$mins$secs" white black
+	weakline_write_segment "$hours$mins$secs" white black
 }
 
 WEAKLINE_SEGMENTS=(
@@ -146,8 +141,9 @@ WEAKLINE_SEGMENTS=(
 WEAKLINE_RSEGMENTS=(
 	"weakline_beginprompt"
 	"weakline_duration"
+	"weakline_endprompt"
 )
 
-PROMPT="\$(${(j:;:)WEAKLINE_SEGMENTS}) "
+PROMPT="\$(WEAKLINE_ISRPROMPT=0 ${(j:; WEAKLINE_ISRPROMPT=0 :)WEAKLINE_SEGMENTS}) "
 PROMPT2=`echo -n "%K{white}%F{black} %_ %f%k${WEAKLINE_ICONS[LEFT_SEPARATOR]} "`
-RPROMPT=" \$(${(j:;:)WEAKLINE_RSEGMENTS})"
+RPROMPT=" \$(WEAKLINE_ISRPROMPT=1 ${(j:; WEAKLINE_ISRPROMPT=1 :)WEAKLINE_RSEGMENTS})"
