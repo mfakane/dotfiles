@@ -1,23 +1,26 @@
 typeset -gAH WEAKLINE_ICONS
 WEAKLINE_ICONS=(
-	LEFT_SEPARATOR	"\uE0B0"
-	RIGHT_SEPARATOR	"\uE0B2"
-	HOME			"\uE12C"
-	HOME_SUB		"\uE18D"
-	FOLDER			"\uE818"
-	VCS_UNTRACKED	"\uE16C"
-	VCS_UNSTAGED	"\uE17C"
-	VCS_STAGED		"\uE168"
-	VCS_STASH		"\uE133"
-	VCS_INCOMING	"\uE131"
-	VCS_OUTGOING	"\uE132"
-	VCS_BRANCH		"\uE220"
-	VCS_GIT			"\uE20E"
+	LEFT_SEPARATOR		"\uE0B0"
+	LEFT_SUBSEPARATOR	"\uE0B1"
+	RIGHT_SEPARATOR		"\uE0B2"
+	RIGHT_SUBSEPARATOR	"\uE0B3"
+	HOME				"\uE12C"
+	HOME_SUB			"\uE18D"
+	FOLDER				"\uE818"
+	VCS_UNTRACKED		"\uE16C"
+	VCS_UNSTAGED		"\uE17C"
+	VCS_STAGED			"\uE168"
+	VCS_STASH			"\uE133"
+	VCS_INCOMING		"\uE131"
+	VCS_OUTGOING		"\uE132"
+	VCS_BRANCH			"\uE220"
+	VCS_GIT				"\uE20E"
 )
 WEAKLINE_CONTEXT_BACKGROUND=black
 WEAKLINE_CONTEXT_FOREGROUND=227
 WEAKLINE_DIR_BACKGROUND=blue
 WEAKLINE_DIR_FOREGROUND=white
+WEAKLINE_DIR_PRETTY=true
 WEAKLINE_VCS_BACKGROUND=green
 WEAKLINE_VCS_CHANGED_BACKGROUND=yellow
 WEAKLINE_VCS_FOREGROUND=black
@@ -102,8 +105,14 @@ function weakline_context() {
 
 function weakline_dir() {
 	icon=$WEAKLINE_ICONS[FOLDER]
-	#path="%(5~|.../%3~|%~)"
-	path="%(5~|%-1~/.../%3~|%4~)"
+	#path=(print -P "%(5~|.../%3~|%~)")
+	path=$(print -P "%(5~|%-1~/.../%3~|%4~)")
+	
+	if $WEAKLINE_DIR_PRETTY && [[ $path != "/" ]]; then
+		[[ $path == "/"* ]] && is_rooted=1 || is_rooted=0
+		path=${path//\// $WEAKLINE_ICONS[LEFT_SUBSEPARATOR] }
+		[[ $is_rooted != 0 ]] && path="/$path"
+	fi
 	
 	if [[ $(print -P "%~") == "~" ]]; then
 		icon=$WEAKLINE_ICONS[HOME]
