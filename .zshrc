@@ -4,6 +4,9 @@ umask 022
 limit coredumpsize 0
 bindkey -d
 
+# enable Ctrl-S for keybinding
+stty stop undef
+
 if [[ -f ~/.zplug/init.zsh ]]; then
 	export ZPLUG_LOADFILE="$HOME/.zsh/zplug.zsh"
 	source ~/.zplug/init.zsh
