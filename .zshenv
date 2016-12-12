@@ -12,7 +12,7 @@ export LANG=ja_JP.UTF-8
 export TERM="xterm-256color"
 export ZLE_RPROMPT_INDENT=0
 
-export PATH=~/bin:$PATH
+export PATH="$HOME/bin:$PATH"
 
 export HISTFILE=~/.zhistory
 export HISTSIZE=10000
