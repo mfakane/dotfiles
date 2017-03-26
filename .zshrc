@@ -7,13 +7,7 @@ bindkey -d
 # enable Ctrl-S for keybinding
 stty stop undef
 
-if [[ -f ~/.zplug/init.zsh ]]; then
-	export ZPLUG_LOADFILE="$HOME/.zsh/zplug.zsh"
-	source ~/.zplug/init.zsh
-	
-	if ! zplug check --verbose; then
-		zplug install
-	fi
-	
-	zplug load
-fi
+for i in ~/.zsh/*.zsh; do
+	source $i
+done
+
