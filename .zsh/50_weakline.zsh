@@ -108,7 +108,7 @@ function weakline_endprompt() {
 }
 
 function weakline_context() {
-	weakline_write_segment "$USER@$HOST" $WEAKLINE_CONTEXT_BACKGROUND $WEAKLINE_CONTEXT_FOREGROUND
+	weakline_write_segment "$USER@${(C)HOST}" $WEAKLINE_CONTEXT_BACKGROUND $WEAKLINE_CONTEXT_FOREGROUND
 }
 
 function weakline_dir() {
