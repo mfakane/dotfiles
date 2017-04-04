@@ -76,9 +76,8 @@ function +vi-git-aheadbehind() {
 }
 
 function +vi-git-untracked() {
-	if command git status --porcelain 2> /dev/null \
-		| awk '{ print $1 }' \
-		| command grep -F '??' > /dev/null 2>&1; then
+	if git status --porcelain 2> /dev/null \
+		| command grep -E '^\?\?' > /dev/null 2>&1; then
 		# Append untracked icon to %m (misc)
 		hook_com[misc]+=" $WEAKLINE_VCS_ICONS[UNTRACKED]"
 	fi
