@@ -43,6 +43,8 @@ zstyle ':vcs_info:hg+set-message:*' hooks \
 									hook-begin
 
 function +vi-hook-begin() {
+	if [[ $1 != 0 ]]; then return 0; fi
+
 	if [[ "${hook_com[vcs]}" == "git" ]]; then
 		hook_com[vcs]=$WEAKLINE_VCS_ICONS[GIT]
 	elif [[ "${hook_com[vcs]}" == "svn" ]]; then
@@ -53,6 +55,8 @@ function +vi-hook-begin() {
 }
 
 function +vi-git-hook-begin() {
+	if [[ $1 != 0 ]]; then return 0; fi
+
 	# Check if its not inside the working tree
 	if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
 		return 1
@@ -62,6 +66,8 @@ function +vi-git-hook-begin() {
 }
 
 function +vi-git-status() {
+	if [[ $1 != 0 ]]; then return 0; fi
+	
 	local ahead behind branch git_status
 	
 	git_status=$(git status --porcelain --branch 2> /dev/null)
@@ -81,6 +87,8 @@ function +vi-git-status() {
 }
 
 function +vi-git-stash() {
+	if [[ $1 != 0 ]]; then return 0; fi
+	
 	if [[ -s $(git rev-parse --git-dir)/refs/stash ]] ; then
 		hook_com[misc]+=" $WEAKLINE_VCS_ICONS[STASH]$(git stash list 2>/dev/null | wc -l)"
 	fi
