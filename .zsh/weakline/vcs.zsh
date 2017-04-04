@@ -16,99 +16,57 @@ WEAKLINE_VCS_CHANGED_BACKGROUND=yellow
 WEAKLINE_VCS_ERROR_BACKGROUND=red
 WEAKLINE_VCS_FOREGROUND=black
 
-autoload -Uz add-zsh-hook
-autoload -Uz vcs_info
-
-function _weakline_vcs_precmd() { LANG=C vcs_info }
-add-zsh-hook precmd _weakline_vcs_precmd
-
-# Use 3 formats for:
-# $vcs_info_msg_0_ ordinary messages
-# $vcs_info_msg_1_ warning messages
-# $vcs_info_msg_2_ error messages
-zstyle ':vcs_info:*' max-exports 3
-zstyle ':vcs_info:*' formats "%s ${WEAKLINE_VCS_ICONS[BRANCH]} %b%m" "%u%c"
-zstyle ':vcs_info:*' actionformats "%s ${WEAKLINE_VCS_ICONS[BRANCH]} %b%m" "%u%c" "%a"
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr " ${WEAKLINE_VCS_ICONS[STAGED]}"
-zstyle ':vcs_info:*' unstagedstr " ${WEAKLINE_VCS_ICONS[UNSTAGED]}"
-zstyle ':vcs_info:git+set-message:*' hooks \
-									 hook-begin \
-									 git-hook-begin \
-									 git-status \
-									 git-stash
-zstyle ':vcs_info:svn+set-message:*' hooks \
-									 hook-begin
-zstyle ':vcs_info:hg+set-message:*' hooks \
-									hook-begin
-
-function +vi-hook-begin() {
-	if [[ $1 != 0 ]]; then return 0; fi
-
-	if [[ "${hook_com[vcs]}" == "git" ]]; then
-		hook_com[vcs]=$WEAKLINE_VCS_ICONS[GIT]
-	elif [[ "${hook_com[vcs]}" == "svn" ]]; then
-		hook_com[vcs]=$WEAKLINE_VCS_ICONS[SVN]
-	elif [[ "${hook_com[vcs]}" == "hg" ]]; then
-		hook_com[vcs]=$WEAKLINE_VCS_ICONS[HG]
-	fi
-}
-
-function +vi-git-hook-begin() {
-	if [[ $1 != 0 ]]; then return 0; fi
-
-	# Check if its not inside the working tree
-	if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
-		return 1
-	fi
+function weakline_vcs_git() {
+	local git_status
 	
-	return 0
-}
+	git_status=(${(f)"$(LANG=C git status --porcelain --branch 2> /dev/null)"})
+	
+	if (( $? != 0 )); then return; fi
+	
+	local branch=${${git_status[1]:3}%...*}
+	local ahead=${git_status[1]#*\[ahead }
+	[[ $ahead[1] = <-> ]] && ahead=${ahead/\]*/}
+	local behind=${git_status[1]#*\[behind }
+	[[ $behind[1] = <-> ]] && ahead=${behind/\]*/}
+	shift git_status
+	local untracked=${(M)#git_status:#\?\?*}
+	local dirty=$(( $#git_status - $untracked ))
+	
+	WEAKLINE_VCS_1+=($WEAKLINE_VCS_ICONS[GIT] $WEAKLINE_VCS_ICONS[BRANCH] $branch)
 
-function +vi-git-status() {
-	if [[ $1 != 0 ]]; then return 0; fi
+	[[ $ahead = <-> ]] && WEAKLINE_VCS_1+="$WEAKLINE_VCS_ICONS[OUTGOING]$ahead"
+	[[ $behind = <-> ]] && WEAKLINE_VCS_1+="$WEAKLINE_VCS_ICONS[OUTGOING]$behind"
+	(( $untracked )) && WEAKLINE_VCS_1+="$WEAKLINE_VCS_ICONS[UNTRACKED]$untracked"
 	
-	local ahead behind branch git_status
-	
-	git_status=$(git status --porcelain --branch 2> /dev/null)
-	ahead=${git_status#*\[ahead }
-	[[ "${ahead:0:1}" = <-> ]] && ahead=${ahead/\]*/}
-	behind=${git_status#*\[behind }
-	[[ "${behind:0:1}" = <-> ]] && behind=${behind/\]*/}
-	
-	if echo $git_status | grep -E '^\?\?' > /dev/null 2>&1; then
-		hook_com[misc]+=" $WEAKLINE_VCS_ICONS[UNTRACKED]"
-	fi
-	
-	[[ "$behind" = <-> ]] && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[INCOMING]$behind"
-	[[ "$ahead" = <-> ]] && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[OUTGOING]$ahead"
-	
-	return 0
-}
-
-function +vi-git-stash() {
-	if [[ $1 != 0 ]]; then return 0; fi
-	
-	if [[ -s $(git rev-parse --git-dir)/refs/stash ]] ; then
-		hook_com[misc]+=" $WEAKLINE_VCS_ICONS[STASH]$(git stash list 2>/dev/null | wc -l)"
+	if (( $dirty != 0 )); then
+		local staged=${(M)#git_status:#[MADRCU]?*}
+		local unstaged=${(M)#git_status:#?[MADRCU]*}
+		
+		(( $unstaged != 0 )) && WEAKLINE_VCS_2+="$WEAKLINE_VCS_ICONS[UNSTAGED]$unstaged"
+		(( $staged != 0 )) && WEAKLINE_VCS_2+="$WEAKLINE_VCS_ICONS[STAGED]$staged"
 	fi
 }
 
 function weakline_vcs() {
-	if [[ -z "${vcs_info_msg_0_}" ]]; then return; fi
-	
 	local background=$WEAKLINE_VCS_BACKGROUND
-	local message=$vcs_info_msg_0_
 	
-	if [[ -n "${vcs_info_msg_1_}" ]]; then
+	WEAKLINE_VCS_1=()
+	WEAKLINE_VCS_2=()
+	WEAKLINE_VCS_3=()
+	
+	weakline_vcs_git
+	
+	local message=($WEAKLINE_VCS_1)
+	
+	if (( $#WEAKLINE_VCS_2 > 0 )); then
 		background=$WEAKLINE_VCS_CHANGED_BACKGROUND
-		message+=$vcs_info_msg_1_
+		message+=($WEAKLINE_VCS_2)
 	fi
 	
-	if [[ -n "${vcs_info_msg_2_}" ]]; then
+	if (( $#WEAKLINE_VCS_3 > 0 )); then
 		background=$WEAKLINE_VCS_ERROR_BACKGROUND
-		message+=" $vcs_info_msg_2_"
+		message+=($WEAKLINE_VCS_3)
 	fi
 	
-	weakline_write_segment "$message" $background $WEAKLINE_VCS_FOREGROUND
+	(( $#message > 0 )) && weakline_write_segment "$message" $background $WEAKLINE_VCS_FOREGROUND
 }
