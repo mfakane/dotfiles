@@ -8,6 +8,8 @@ WEAKLINE_VCS_ICONS=(
 	OUTGOING		"\uE132"
 	BRANCH			"\uE220"
 	GIT				"\uE20E"
+	SVN				"(svn)"
+	HG				"\uE1C3"
 )
 WEAKLINE_VCS_BACKGROUND=green
 WEAKLINE_VCS_CHANGED_BACKGROUND=yellow
@@ -25,14 +27,29 @@ add-zsh-hook precmd _weakline_vcs_precmd
 # $vcs_info_msg_1_ warning messages
 # $vcs_info_msg_2_ error messages
 zstyle ':vcs_info:*' max-exports 3
-zstyle ':vcs_info:*' formats "${WEAKLINE_VCS_ICONS[BRANCH]} %b" "%u%c"
-zstyle ':vcs_info:*' actionformats "${WEAKLINE_VCS_ICONS[BRANCH]} %b" "%u%c" "%a"
+zstyle ':vcs_info:*' formats "%s ${WEAKLINE_VCS_ICONS[BRANCH]} %b" "%u%c"
+zstyle ':vcs_info:*' actionformats "%s ${WEAKLINE_VCS_ICONS[BRANCH]} %b" "%u%c" "%a"
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr " ${WEAKLINE_VCS_ICONS[STAGED]}"
 zstyle ':vcs_info:*' unstagedstr " ${WEAKLINE_VCS_ICONS[UNSTAGED]}"
 zstyle ':vcs_info:git+set-message:*' hooks \
+									 hook-begin \
 									 git-hook-begin \
 									 git-untracked
+zstyle ':vcs_info:svn+set-message:*' hooks \
+									 hook-begin
+zstyle ':vcs_info:hg+set-message:*' hooks \
+									hook-begin
+
+function +vi-hook-begin() {
+	if [[ "${hook_com[vcs]}" == "git" ]]; then
+		hook_com[vcs]=$WEAKLINE_VCS_ICONS[GIT]
+	elif [[ "${hook_com[vcs]}" == "svn" ]]; then
+		hook_com[vcs]=$WEAKLINE_VCS_ICONS[SVN]
+	elif [[ "${hook_com[vcs]}" == "hg" ]]; then
+		hook_com[vcs]=$WEAKLINE_VCS_ICONS[HG]
+	fi
+}
 
 function +vi-git-hook-begin() {
 	# Check if its not inside the working tree
