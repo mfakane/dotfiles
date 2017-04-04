@@ -20,9 +20,9 @@ function _weakline_vcs_precmd() { LANG=C vcs_info }
 add-zsh-hook precmd _weakline_vcs_precmd
 
 zstyle ':vcs_info:*' formats "${WEAKLINE_VCS_ICONS[BRANCH]} %b" "%u%c"
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr " ${WEAKLINE_VCS_ICONS[STAGED]}"
-zstyle ':vcs_info:git:*' unstagedstr " ${WEAKLINE_VCS_ICONS[UNSTAGED]}"
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr " ${WEAKLINE_VCS_ICONS[STAGED]}"
+zstyle ':vcs_info:*' unstagedstr " ${WEAKLINE_VCS_ICONS[UNSTAGED]}"
 zstyle ':vcs_info:git+set-message:*' hooks \
 									 git-hook-begin \
 									 git-untracked
