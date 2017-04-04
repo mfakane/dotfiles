@@ -27,8 +27,8 @@ add-zsh-hook precmd _weakline_vcs_precmd
 # $vcs_info_msg_1_ warning messages
 # $vcs_info_msg_2_ error messages
 zstyle ':vcs_info:*' max-exports 3
-zstyle ':vcs_info:*' formats "%s ${WEAKLINE_VCS_ICONS[BRANCH]} %b" "%u%c"
-zstyle ':vcs_info:*' actionformats "%s ${WEAKLINE_VCS_ICONS[BRANCH]} %b" "%u%c" "%a"
+zstyle ':vcs_info:*' formats "%s ${WEAKLINE_VCS_ICONS[BRANCH]} %b%m" "%u%c"
+zstyle ':vcs_info:*' actionformats "%s ${WEAKLINE_VCS_ICONS[BRANCH]} %b%m" "%u%c" "%a"
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr " ${WEAKLINE_VCS_ICONS[STAGED]}"
 zstyle ':vcs_info:*' unstagedstr " ${WEAKLINE_VCS_ICONS[UNSTAGED]}"
@@ -61,16 +61,16 @@ function +vi-git-hook-begin() {
 }
 
 function +vi-git-untracked() {
-	# Check if its not the second format string
-	if [[ $1 != 1 ]]; then
+	# Check if its not the first format string
+	if [[ $1 != 0 ]]; then
 		return 0
 	fi
 	
 	if command git status --porcelain 2> /dev/null \
 		| awk '{ print $1 }' \
 		| command grep -F '??' > /dev/null 2>&1; then
-		# Append untracked icon to %u (unstaged)
-		hook_com[unstaged]+=" $WEAKLINE_VCS_ICONS[UNTRACKED]"
+		# Append untracked icon to %m (misc)
+		hook_com[misc]+=" $WEAKLINE_VCS_ICONS[UNTRACKED]"
 	fi
 }
 
