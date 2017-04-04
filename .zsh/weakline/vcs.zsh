@@ -35,6 +35,7 @@ zstyle ':vcs_info:*' unstagedstr " ${WEAKLINE_VCS_ICONS[UNSTAGED]}"
 zstyle ':vcs_info:git+set-message:*' hooks \
 									 hook-begin \
 									 git-hook-begin \
+									 git-stash \
 									 git-untracked
 zstyle ':vcs_info:svn+set-message:*' hooks \
 									 hook-begin
@@ -71,6 +72,12 @@ function +vi-git-untracked() {
 		| command grep -F '??' > /dev/null 2>&1; then
 		# Append untracked icon to %m (misc)
 		hook_com[misc]+=" $WEAKLINE_VCS_ICONS[UNTRACKED]"
+	fi
+}
+
+function +vi-git-stash() {
+	if [[ -s $(git rev-parse --git-dir)/refs/stash ]] ; then
+		hook_com[misc]+=" $WEAKLINE_VCS_ICONS[STASH] $(git stash list 2>/dev/null | wc -l)"
 	fi
 }
 
