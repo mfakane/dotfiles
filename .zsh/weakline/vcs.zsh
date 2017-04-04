@@ -69,8 +69,8 @@ function +vi-git-aheadbehind() {
 	ahead=$(git rev-list "$branch@{upstream}..HEAD" 2> /dev/null | wc -l | tr -d ' ')
 	behind=$(git rev-list "HEAD..$branch@{upstream}" 2> /dev/null | wc -l | tr -d ' ')
 	
-	(( behind )) && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[INCOMING] $behind"
-	(( ahead )) && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[OUTGOING] $ahead"
+	(( behind )) && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[INCOMING]$behind"
+	(( ahead )) && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[OUTGOING]$ahead"
 }
 
 function +vi-git-untracked() {
@@ -89,7 +89,7 @@ function +vi-git-untracked() {
 
 function +vi-git-stash() {
 	if [[ -s $(git rev-parse --git-dir)/refs/stash ]] ; then
-		hook_com[misc]+=" $WEAKLINE_VCS_ICONS[STASH] $(git stash list 2>/dev/null | wc -l)"
+		hook_com[misc]+=" $WEAKLINE_VCS_ICONS[STASH]$(git stash list 2>/dev/null | wc -l)"
 	fi
 }
 
