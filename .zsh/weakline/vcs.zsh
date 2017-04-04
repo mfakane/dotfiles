@@ -35,9 +35,8 @@ zstyle ':vcs_info:*' unstagedstr " ${WEAKLINE_VCS_ICONS[UNSTAGED]}"
 zstyle ':vcs_info:git+set-message:*' hooks \
 									 hook-begin \
 									 git-hook-begin \
-									 git-aheadbehind \
-									 git-stash \
-									 git-untracked
+									 git-status \
+									 git-stash
 zstyle ':vcs_info:svn+set-message:*' hooks \
 									 hook-begin
 zstyle ':vcs_info:hg+set-message:*' hooks \
@@ -62,25 +61,23 @@ function +vi-git-hook-begin() {
 	return 0
 }
 
-function +vi-git-aheadbehind() {
-	local ahead behind branch
+function +vi-git-status() {
+	local ahead behind branch git_status
 	
-	branch=$(git symbolic-ref --short HEAD 2> /dev/null)
-	ahead=$(git rev-list "$branch@{upstream}..HEAD" 2> /dev/null | wc -l | tr -d ' ')
-	behind=$(git rev-list "HEAD..$branch@{upstream}" 2> /dev/null | wc -l | tr -d ' ')
+	git_status=$(git status --porcelain --branch 2> /dev/null)
+	ahead=${git_status#*\[ahead }
+	[[ "${ahead:0:1}" = <-> ]] && ahead=${ahead/\]*/}
+	behind=${git_status#*\[behind }
+	[[ "${behind:0:1}" = <-> ]] && behind=${behind/\]*/}
 	
-	(( behind )) && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[INCOMING]$behind"
-	(( ahead )) && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[OUTGOING]$ahead"
-	
-	return 0
-}
-
-function +vi-git-untracked() {
-	if git status --porcelain 2> /dev/null \
-		| command grep -E '^\?\?' > /dev/null 2>&1; then
-		# Append untracked icon to %m (misc)
+	if echo $git_status | grep -E '^\?\?' > /dev/null 2>&1; then
 		hook_com[misc]+=" $WEAKLINE_VCS_ICONS[UNTRACKED]"
 	fi
+	
+	[[ "$behind" = <-> ]] && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[INCOMING]$behind"
+	[[ "$ahead" = <-> ]] && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[OUTGOING]$ahead"
+	
+	return 0
 }
 
 function +vi-git-stash() {
