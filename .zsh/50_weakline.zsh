@@ -60,7 +60,7 @@ function weakline_endprompt() {
 	fi
 }
 
-for i in weakline/*.zsh; do
+for i in $(dirname $0)/weakline/*.zsh; do
 	source $i
 done
 
