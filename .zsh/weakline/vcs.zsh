@@ -35,6 +35,7 @@ zstyle ':vcs_info:*' unstagedstr " ${WEAKLINE_VCS_ICONS[UNSTAGED]}"
 zstyle ':vcs_info:git+set-message:*' hooks \
 									 hook-begin \
 									 git-hook-begin \
+									 git-aheadbehind \
 									 git-stash \
 									 git-untracked
 zstyle ':vcs_info:svn+set-message:*' hooks \
@@ -59,6 +60,17 @@ function +vi-git-hook-begin() {
 	fi
 	
 	return 0
+}
+
+function +vi-git-aheadbehind() {
+	local ahead behind branch
+	
+	branch=$(git symbolic-ref --short HEAD 2> /dev/null)
+	ahead=$(git rev-list "$branch@{upstream}..HEAD" 2> /dev/null | wc -l | tr -d ' ')
+	behind=$(git rev-list "HEAD..$branch@{upstream}" 2> /dev/null | wc -l | tr -d ' ')
+	
+	(( behind )) && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[INCOMING] $behind"
+	(( ahead )) && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[OUTGOING] $ahead"
 }
 
 function +vi-git-untracked() {
