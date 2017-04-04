@@ -71,14 +71,11 @@ function +vi-git-aheadbehind() {
 	
 	(( behind )) && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[INCOMING]$behind"
 	(( ahead )) && hook_com[misc]+=" $WEAKLINE_VCS_ICONS[OUTGOING]$ahead"
+	
+	return 0
 }
 
 function +vi-git-untracked() {
-	# Check if its not the first format string
-	if [[ $1 != 0 ]]; then
-		return 0
-	fi
-	
 	if command git status --porcelain 2> /dev/null \
 		| awk '{ print $1 }' \
 		| command grep -F '??' > /dev/null 2>&1; then
