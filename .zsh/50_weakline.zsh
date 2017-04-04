@@ -61,6 +61,32 @@ zstyle ':vcs_info:*' formats "${WEAKLINE_ICONS[VCS_BRANCH]} %b" "%u%c"
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr " ${WEAKLINE_ICONS[VCS_STAGED]}"
 zstyle ':vcs_info:git:*' unstagedstr " ${WEAKLINE_ICONS[VCS_UNSTAGED]}"
+zstyle ':vcs_info:git+set-message:*' hooks \
+									 git-hook-begin \
+									 git-untracked
+
+function +vi-git-hook-begin() {
+	# Check if its not inside the working tree
+	if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+		return 1
+	fi
+	
+	return 0
+}
+
+function +vi-git-untracked() {
+	# Check if its not the second format string
+	if [[ $1 != 1 ]]; then
+		return 0
+	fi
+	
+	if command git status --porcelain 2> /dev/null \
+		| awk '{ print $1 }' \
+		| command grep -F '??' > /dev/null 2>&1; then
+		# Append untracked icon to %u (unstaged)
+		hook_com[unstaged]+=" $WEAKLINE_ICONS[VCS_UNTRACKED]"
+	fi
+}
 
 function _weakline_preexec() {
 	WEAKLINE_TIMER=${timer:-$SECONDS}
