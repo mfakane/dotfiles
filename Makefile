@@ -1,5 +1,5 @@
 EXCLUDE		:= .DS_Store .git .gitmodules
-CANDIDATES	:= $(wildcard .??*) bin
+CANDIDATES	:= $(wildcard .??*)
 DOTFILES	:= $(filter-out $(EXCLUDE), $(CANDIDATES))
 DOTPATH		:= $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
