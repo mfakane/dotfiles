@@ -12,4 +12,3 @@ init:
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/init.sh
 
 install: deploy init
-	@exec $$SHELL
