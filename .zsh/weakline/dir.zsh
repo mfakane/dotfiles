@@ -6,17 +6,18 @@ if [[ $TERM == "xterm-256color" ]]; then
 		HOME_SUB	"\uE18D"
 		FOLDER		"\uE818"
 	)
+	WEAKLINE_DIR_PRETTY=true
 else
 	WEAKLINE_DIR_ICONS=(
 		HOME		"\b"
 		HOME_SUB	"\b"
 		FOLDER		"\b"
 	)
+	WEAKLINE_DIR_PRETTY=false
 fi
 
 WEAKLINE_DIR_BACKGROUND=blue
 WEAKLINE_DIR_FOREGROUND=white
-WEAKLINE_DIR_PRETTY=true
 
 function weakline_dir() {
 	local icon=$WEAKLINE_DIR_ICONS[FOLDER]
