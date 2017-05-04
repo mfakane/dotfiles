@@ -1,16 +1,33 @@
 typeset -gAH WEAKLINE_VCS_ICONS
-WEAKLINE_VCS_ICONS=(
-	UNTRACKED		"\uE16C"
-	UNSTAGED		"\uE17C"
-	STAGED			"\uE168"
-	STASH			"\uE133"
-	INCOMING		"\uE131"
-	OUTGOING		"\uE132"
-	BRANCH			"\uE220"
-	GIT				"\uE20E"
-	SVN				"(svn)"
-	HG				"\uE1C3"
-)
+
+if [[ $TERM == "xterm-256color" ]]; then
+	WEAKLINE_VCS_ICONS=(
+		UNTRACKED		"\uE16C"
+		UNSTAGED		"\uE17C"
+		STAGED			"\uE168"
+		STASH			"\uE133"
+		INCOMING		"\uE131"
+		OUTGOING		"\uE132"
+		BRANCH			"\uE220"
+		GIT				"\uE20E"
+		SVN				"(svn)"
+		HG				"\uE1C3"
+	)
+else
+	WEAKLINE_VCS_ICONS=(
+		UNTRACKED       "?"
+		UNSTAGED        "!"
+		STAGED          "+"
+		STASH           "STASH:"
+		INCOMING        "IN:"
+		OUTGOING        "OUT:"
+		BRANCH          "@"
+		GIT             "(git)"
+		SVN             "(svn)"
+		HG              "(hg)"
+	)
+fi
+
 WEAKLINE_VCS_BACKGROUND=green
 WEAKLINE_VCS_CHANGED_BACKGROUND=yellow
 WEAKLINE_VCS_ERROR_BACKGROUND=red

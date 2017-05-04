@@ -1,9 +1,19 @@
 typeset -gAH WEAKLINE_DIR_ICONS
-WEAKLINE_DIR_ICONS=(
-	HOME		"\uE12C"
-	HOME_SUB	"\uE18D"
-	FOLDER		"\uE818"
-)
+
+if [[ $TERM == "xterm-256color" ]]; then
+	WEAKLINE_DIR_ICONS=(
+		HOME		"\uE12C"
+		HOME_SUB	"\uE18D"
+		FOLDER		"\uE818"
+	)
+else
+	WEAKLINE_DIR_ICONS=(
+		HOME		"\b"
+		HOME_SUB	"\b"
+		FOLDER		"\b"
+	)
+fi
+
 WEAKLINE_DIR_BACKGROUND=blue
 WEAKLINE_DIR_FOREGROUND=white
 WEAKLINE_DIR_PRETTY=true
