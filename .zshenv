@@ -22,3 +22,5 @@ if [[ $UID == 0 ]]; then
 	unset HISTFILE
 	export SAVEHIST=0
 fi
+
+[[ -f ~/.zshenv_local ]] && source ~/.zshenv_local

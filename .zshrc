@@ -11,3 +11,4 @@ for i in ~/.zsh/*.zsh; do
 	source $i
 done
 
+[[ -f ~/.zshrc_local ]] && source ~/.zshrc_local

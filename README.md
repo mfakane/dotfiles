@@ -11,3 +11,7 @@ $ git clone https://github.com/mfakane/.dotfiles.git
 $ cd .dotfiles
 $ make
 ```
+
+## How to add local settings
+Make either `~/.zshrc_local`, `~/.zshenv_local`, or both to write any machine-specific local settings.
+These files would be read automatically when exists.
