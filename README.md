@@ -10,6 +10,7 @@
 $ git clone https://github.com/mfakane/.dotfiles.git
 $ cd .dotfiles
 $ make
+$ zsh
 ```
 
 ## How to add local settings
