@@ -38,7 +38,8 @@ function weakline_vcs_git() {
 	
 	git_status=(${(f)"$(LANG=C git status --porcelain --branch 2> /dev/null)"})
 	
-	if (( $? != 0 )); then return; fi
+	[[ $? != 0 ]] && return
+	(( $#git_status < 1 )) && return
 	
 	local branch=${${git_status[1]:3}%...*}
 	local ahead=${git_status[1]#*\[ahead }
