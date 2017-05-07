@@ -1,6 +1,6 @@
 typeset -gAH WEAKLINE_DIR_ICONS
 
-if [[ $TERM == "xterm-256color" ]]; then
+if $IS_256COLOR; then
 	WEAKLINE_DIR_ICONS=(
 		HOME		"\uE12C"
 		HOME_SUB	"\uE18D"

@@ -17,6 +17,12 @@ export HISTFILE=~/.zhistory
 export HISTSIZE=10000
 export SAVEHIST=10000
 
+if [[ $TERM =~ "-256color$" ]]; then
+	export IS_256COLOR=true
+else
+	export IS_256COLOR=false
+fi
+
 # no history when root
 if [[ $UID == 0 ]]; then
 	unset HISTFILE

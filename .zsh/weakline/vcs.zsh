@@ -1,6 +1,6 @@
 typeset -gAH WEAKLINE_VCS_ICONS
 
-if [[ $TERM == "xterm-256color" ]]; then
+if $IS_256COLOR; then
 	WEAKLINE_VCS_ICONS=(
 		UNTRACKED		"\uE16C"
 		UNSTAGED		"\uE17C"

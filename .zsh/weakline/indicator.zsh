@@ -5,7 +5,7 @@ WEAKLINE_INDICATOR_ROOT_FOREGROUND=black
 
 function weakline_indicator() {
 	if [[ $UID == 0 ]]; then
-		if [[ $TERM == "xterm-256color" ]]; then
+		if $IS_256COLOR; then
 			weakline_write_segment "\uE1E5" $WEAKLINE_INDICATOR_ROOT_BACKGROUND $WEAKLINE_INDICATOR_ROOT_FOREGROUND
 		else
 			weakline_write_segment "#" $WEAKLINE_INDICATOR_ROOT_BACKGROUND $WEAKLINE_INDICATOR_ROOT_FOREGROUND

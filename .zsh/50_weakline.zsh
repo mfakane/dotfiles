@@ -1,5 +1,5 @@
 typeset -gAH WEAKLINE_ICONS
-if [[ $TERM == "xterm-256color" ]]; then
+if $IS_256COLOR; then
 	WEAKLINE_ICONS=(
 		LEFT_SEPARATOR		"\uE0B0"
 		LEFT_SUBSEPARATOR	"\uE0B1"
