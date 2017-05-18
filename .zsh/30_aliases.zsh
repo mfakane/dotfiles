@@ -3,6 +3,7 @@ alias df='df -h'
 alias free='free -h'
 alias crontab='crontab -i'
 alias jobs='jobs -l'
+alias grep='grep --color=auto'
 alias ssh='ssh -A'
 
 if [[ -n $TMUX ]]; then
