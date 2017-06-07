@@ -21,13 +21,13 @@ WEAKLINE_DIR_FOREGROUND=white
 
 function weakline_dir() {
 	local icon=$WEAKLINE_DIR_ICONS[FOLDER]
-	#path=(print -P "%(5~|.../%3~|%~)")
-	local path=$(print -P "%(5~|%-1~/.../%3~|%4~)")
+	#dir=(print -P "%(5~|.../%3~|%~)")
+	local dir=$(print -P "%(5~|%-1~/.../%3~|%4~)")
 	
-	if $WEAKLINE_DIR_PRETTY && [[ $path != "/" ]]; then
-		[[ $path == "/"* ]] && is_rooted=1 || is_rooted=0
-		path=${path//\// $WEAKLINE_ICONS[LEFT_SUBSEPARATOR] }
-		[[ $is_rooted != 0 ]] && path="/$path"
+	if $WEAKLINE_DIR_PRETTY && [[ $dir != "/" ]]; then
+		[[ $dir == "/"* ]] && is_rooted=1 || is_rooted=0
+		dir=${dir//\// $WEAKLINE_ICONS[LEFT_SUBSEPARATOR] }
+		[[ $is_rooted != 0 ]] && dir="/$dir"
 	fi
 	
 	if [[ $(print -P "%~") == "~" ]]; then
@@ -36,5 +36,5 @@ function weakline_dir() {
 		icon=$WEAKLINE_DIR_ICONS[HOME_SUB]
 	fi
 	
-	weakline_write_segment "$icon $path" $WEAKLINE_DIR_BACKGROUND $WEAKLINE_DIR_FOREGROUND	
+	weakline_write_segment "$icon $dir" $WEAKLINE_DIR_BACKGROUND $WEAKLINE_DIR_FOREGROUND	
 }

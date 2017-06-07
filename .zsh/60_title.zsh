@@ -3,10 +3,10 @@ autoload -Uz add-zsh-hook
 case "$TERM" in
 	kterm*|xterm*|screen*|tmux*)
 		function _title() {
-			local path=$(print -P "%(5~|%-1~/.../%3~|%4~)")
+			local dir=$(print -P "%(5~|%-1~/.../%3~|%4~)")
 			local userhost="$USER@${(C)HOST}"
 
-			echo -n "$userhost:$path"
+			echo -n "$userhost:$dir"
 		}
 		
 		function _title_precmd() {
