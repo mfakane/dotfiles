@@ -3,7 +3,7 @@ autoload -Uz compinit; compinit -u
 
 if [[ -f ~/.dircolors ]]; then
 	eval `dircolors -b ~/.dircolors`
-else
+elif which dircolors > /dev/null 2>&1; then
 	eval `dircolors -b`
 fi
 

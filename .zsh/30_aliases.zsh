@@ -1,4 +1,12 @@
-alias ls='ls -AlFh --group-directories-first --color=auto'
+case "$OSTYPE" in
+	darwin*)
+		alias ls='ls -AlFhG'
+		;;
+	linux*)
+		alias ls='ls -AlFh --group-directories-first --color=auto'
+		;;
+esac
+
 alias df='df -h'
 alias free='free -h'
 alias crontab='crontab -i'
