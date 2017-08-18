@@ -7,7 +7,7 @@
 
 ## Installation
 ```
-$ git clone https://github.com/mfakane/.dotfiles.git
+$ git clone --recursive https://github.com/mfakane/.dotfiles.git
 $ cd .dotfiles
 $ make
 $ zsh

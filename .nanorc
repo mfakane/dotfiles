@@ -1,4 +1,4 @@
-include "/usr/share/nano/*.nanorc"
+include "~/.nano/*.nanorc"
 
 set autoindent
 set const
