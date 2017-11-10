@@ -50,7 +50,7 @@ function weakline_vcs_git() {
 	local untracked=${(M)#git_status:#\?\?*}
 	local dirty=$(( $#git_status - $untracked ))
 	
-	WEAKLINE_VCS_1+=($WEAKLINE_VCS_ICONS[GIT] $WEAKLINE_VCS_ICONS[BRANCH] $branch)
+	WEAKLINE_VCS_1+=("$WEAKLINE_VCS_ICONS[GIT] " "$WEAKLINE_VCS_ICONS[BRANCH]$branch")
 
 	[[ $ahead = <-> ]] && WEAKLINE_VCS_1+="$WEAKLINE_VCS_ICONS[OUTGOING]$ahead"
 	[[ $behind = <-> ]] && WEAKLINE_VCS_1+="$WEAKLINE_VCS_ICONS[OUTGOING]$behind"
