@@ -21,7 +21,8 @@ WEAKLINE_SEGMENTS=(
 	"weakline_dir"
 	"weakline_vcs"
 	"weakline_endprompt"
-	"echo"
+)
+WEAKLINE_LSEGMENTS=(
 	"weakline_beginprompt"
 	"weakline_indicator"
 	"weakline_endprompt"
@@ -41,6 +42,7 @@ autoload -Uz add-zsh-hook
 
 function _weakline_precmd() {
 	WEAKLINE_RETVAL=$?
+	print -P "\$(WEAKLINE_ISRPROMPT=0;${(j:;:)WEAKLINE_SEGMENTS})"
 }
 
 add-zsh-hook precmd _weakline_precmd
@@ -55,7 +57,7 @@ function weakline_write_segment() {
 	elif [[ $WEAKLINE_ISRPROMPT != 0 ]]; then
 		echo -n "%F{$2}${WEAKLINE_ICONS[RIGHT_SEPARATOR]}%f"
 	fi
-	
+
 	echo -n "%K{$2}%F{$3} $1 %f%k"
 	WEAKLINE_LAST_BACKGROUND=$2
 }
@@ -74,6 +76,6 @@ for i in $(dirname $0)/weakline/*.zsh; do
 	source $i
 done
 
-PROMPT="\$(WEAKLINE_ISRPROMPT=0;${(j:;:)WEAKLINE_SEGMENTS}) "
+PROMPT="\$(WEAKLINE_ISRPROMPT=0;${(j:;:)WEAKLINE_LSEGMENTS}) "
 PROMPT2=`echo -n "%K{white}%F{black} %_ %f%k${WEAKLINE_ICONS[LEFT_SEPARATOR]} "`
 RPROMPT=" \$(WEAKLINE_ISRPROMPT=1;${(j:;:)WEAKLINE_RSEGMENTS};WEAKLINE_ISRPROMPT=0)"
