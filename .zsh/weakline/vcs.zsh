@@ -45,7 +45,7 @@ function weakline_vcs_git() {
 	local ahead=${git_status[1]#*\[ahead }
 	[[ $ahead[1] = <-> ]] && ahead=${ahead/\]*/}
 	local behind=${git_status[1]#*\[behind }
-	[[ $behind[1] = <-> ]] && ahead=${behind/\]*/}
+	[[ $behind[1] = <-> ]] && behind=${behind/\]*/}
 	shift git_status
 	local untracked=${(M)#git_status:#\?\?*}
 	local dirty=$(( $#git_status - $untracked ))
@@ -53,7 +53,7 @@ function weakline_vcs_git() {
 	WEAKLINE_VCS_1+=("$WEAKLINE_VCS_ICONS[GIT] " "$WEAKLINE_VCS_ICONS[BRANCH]$branch")
 
 	[[ $ahead = <-> ]] && WEAKLINE_VCS_1+="$WEAKLINE_VCS_ICONS[OUTGOING]$ahead"
-	[[ $behind = <-> ]] && WEAKLINE_VCS_1+="$WEAKLINE_VCS_ICONS[OUTGOING]$behind"
+	[[ $behind = <-> ]] && WEAKLINE_VCS_1+="$WEAKLINE_VCS_ICONS[INCOMING]$behind"
 	(( $untracked )) && WEAKLINE_VCS_1+="$WEAKLINE_VCS_ICONS[UNTRACKED]$untracked"
 	
 	if (( $dirty != 0 )); then
