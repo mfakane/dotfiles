@@ -1,8 +1,8 @@
 include "~/.nano/*.nanorc"
 
 set autoindent
-set const
-set cut
+set constantshow
+set cutfromcursor
 set morespace
 #set mouse
 set multibuffer
@@ -10,14 +10,13 @@ set nohelp
 set nonewlines
 set nowrap
 set preserve
-set rebindkeypad
 set smarthome
 set smooth
 set suspend
 set tabsize 4
 
 bind	^A	mark		main
-bind	^C	copytext	main
+bind	^C	copy		main
 bind	^F	whereis		all
 bind	^G	gotoline	main
 #bind	^I	indent		main
@@ -30,7 +29,7 @@ bind	^S	writeout	main
 bind	^R	replace		all
 bind	^W	cancel		all
 bind	^W	exit		main
-bind	^V	uncut		main
+bind	^V	paste		main
 bind	^X	cut			main
 bind	M-Y	redo		main
 bind	M-Z	undo		main
@@ -38,7 +37,7 @@ bind	^]	findbracket	main
 
 bind	F1	nohelp		main
 bind	F2	help		main
-bind	F3	searchagain	main
+bind	F3	findnext	main
 bind	F5	refresh		all
 bind	F12	suspend		all
 
