@@ -2,9 +2,9 @@ typeset -gAH WEAKLINE_DIR_ICONS
 
 if $IS_256COLOR; then
 	WEAKLINE_DIR_ICONS=(
-		HOME		"\uE12C"
-		HOME_SUB	"\uE18D"
-		FOLDER		"\uE818"
+		HOME		"\b"
+		HOME_SUB	"\b"
+		FOLDER		"\b"
 	)
 	WEAKLINE_DIR_PRETTY=true
 else

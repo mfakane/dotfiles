@@ -2,16 +2,16 @@ typeset -gAH WEAKLINE_VCS_ICONS
 
 if $IS_256COLOR; then
 	WEAKLINE_VCS_ICONS=(
-		UNTRACKED		"\uE16C"
-		UNSTAGED		"\uE17C"
-		STAGED			"\uE168"
-		STASH			"\uE133"
-		INCOMING		"\uE131"
-		OUTGOING		"\uE132"
-		BRANCH			"\uE220"
-		GIT				"\uE20E"
-		SVN				"(svn)"
-		HG				"\uE1C3"
+		UNTRACKED		"\u25C7"
+		UNSTAGED		"\u25CB"
+		STAGED			"\u25CF"
+		STASH			"\u25C8"
+		INCOMING		"\u25BE"
+		OUTGOING		"\u25B2"
+		BRANCH			"\b\uE0A0 "
+		GIT				"\b"
+		SVN				"svn"
+		HG				"hg"
 	)
 else
 	WEAKLINE_VCS_ICONS=(
@@ -21,10 +21,10 @@ else
 		STASH           "STASH:"
 		INCOMING        "IN:"
 		OUTGOING        "OUT:"
-		BRANCH          "@"
-		GIT             "(git)"
-		SVN             "(svn)"
-		HG              "(hg)"
+		BRANCH          "\b@ "
+		GIT             "\b"
+		SVN             "svn"
+		HG              "hg"
 	)
 fi
 
