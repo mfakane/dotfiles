@@ -42,7 +42,7 @@ autoload -Uz add-zsh-hook
 
 function _weakline_precmd() {
 	WEAKLINE_RETVAL=$?
-	LANG=C.UTF-8 print -P "\$(WEAKLINE_ISRPROMPT=0;${(j:;:)WEAKLINE_SEGMENTS})"
+	print -P "\$(WEAKLINE_ISRPROMPT=0;${(j:;:)WEAKLINE_SEGMENTS})"
 }
 
 add-zsh-hook precmd _weakline_precmd
