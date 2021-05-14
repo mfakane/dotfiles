@@ -9,7 +9,7 @@
 ```
 $ git clone --recursive https://github.com/mfakane/.dotfiles.git
 $ cd .dotfiles
-$ make
+$ ./install.sh
 $ zsh
 ```
 
