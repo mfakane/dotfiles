@@ -1,11 +1,22 @@
-case "$OSTYPE" in
-	darwin*)
-		alias ls='ls -AlFhG'
-		;;
-	linux*)
-		alias ls='ls -AlFh --group-directories-first --color=auto'
-		;;
-esac
+if (( $+commands[exa] )); then
+	alias ls='exa -alFhg --git --group-directories-first'
+else
+	case "$OSTYPE" in
+		darwin*)
+			alias ls='ls -AlFhG'
+			;;
+		linux*)
+			alias ls='ls -AlFh --group-directories-first --color=auto'
+			;;
+	esac
+fi
+
+if (( $+commands[bat] )); then
+	alias cat='bat'
+elif (( $+commands[batcat] )); then
+	alias bat='batcat'
+	alias cat='batcat'
+fi
 
 alias df='df -h'
 alias free='free -h'
