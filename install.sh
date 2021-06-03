@@ -40,3 +40,9 @@ elif type brew &> /dev/null; then
 		bat \
 		exa
 fi
+
+# Install starship
+
+if ! type starship &> /dev/null; then
+	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+fi
