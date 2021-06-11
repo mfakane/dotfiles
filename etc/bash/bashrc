@@ -1,4 +1,5 @@
-. "$XDG_CONFIG_HOME/bash/bash_env"
+# $XDG_CONFIG_HOME may be not set here on WSL Ubuntu
+. "$HOME/.local/etc/sh/config"
 . "$XDG_CONFIG_HOME/sh/interactive"
 
 if [[ -d "$XDG_CONFIG_HOME/bash/bashrc.d" ]]; then

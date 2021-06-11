@@ -13,6 +13,6 @@ XDG_STATE_HOME			DEFAULT="${HOME}/.local/var/lib"
 XDG_LOG_HOME			DEFAULT="${HOME}/.local/var/log"
 
 # Fix various applications to respect the XDG basedir spec
-BASH_ENV				DEFAULT="${XDG_CONFIG_HOME}/bash/bash_env"
-ENV						DEFAULT="${XDG_CONFIG_HOME}/sh/env"
+BASH_ENV				DEFAULT="${XDG_CONFIG_HOME}/sh/config"
+ENV						DEFAULT="${XDG_CONFIG_HOME}/sh/config"
 ZDOTDIR					DEFAULT="${XDG_CONFIG_HOME}/zsh"
