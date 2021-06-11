@@ -1,0 +1,11 @@
+/*
+!/.gitignore
+!/bash/
+!/gh/
+!/environment.d/
+!/nano/
+!/npm/
+!/sh/
+!/starship/
+!/tmux/
+!/zsh/

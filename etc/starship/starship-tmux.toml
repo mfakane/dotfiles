@@ -1,0 +1,8 @@
+format = """
+$lua\
+$jobs\
+$battery\
+$time\
+$status\
+$shell\
+$character"""

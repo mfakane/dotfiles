@@ -1,0 +1,11 @@
+setopt auto_cd
+setopt auto_pushd
+setopt brace_ccl
+setopt print_eight_bit
+setopt rm_star_wait
+setopt notify
+setopt long_list_jobs
+setopt auto_resume
+setopt no_case_glob
+setopt mark_dirs
+setopt mail_warning

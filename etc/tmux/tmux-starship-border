@@ -1,0 +1,81 @@
+#!/bin/bash
+set -eu
+BASEDIR=$(cd $(dirname $0); pwd)
+BASENAME=$(basename $0)
+INCLUDES="$XDG_LIB_HOME/dotfiles/includes"
+
+. "$INCLUDES/die.sh"
+
+pane_pid=$1
+pane_current_path=$2
+pane_current_command=$3
+
+strpos() { 
+	local start="$3"
+	local str="${1:start}"
+	local target="$2"
+	local x="${str%%$target*}"
+	[[ "$x" = "$str" ]] && echo -1 || echo "$(($start + ${#x}))"
+}
+
+replace_codes() {
+	local input="$@"
+	local lastidx=0
+	local esc=$(printf "\033[")
+	local idx=$(strpos "$input" "$esc" $lastidx)
+
+	while [[ $idx -ne -1 ]]; do
+		echo -n "${input:lastidx:idx-lastidx}"
+
+		local end=$(strpos "$input" "m" $idx)
+
+		IFS_ORIG="$IFS"
+		IFS=";"
+		local seq=(${input:idx+2:end-idx-2})
+		IFS="$IFS_ORIG"
+
+		local tmuxattrs=()
+
+		for num in "${seq[@]}"; do
+			case "$num" in
+				0) tmuxattrs+=("default") ;;
+				1) tmuxattrs+=("bold") ;;
+				2) tmuxattrs+=("dim") ;;
+				3) tmuxattrs+=("italics") ;;
+				4) tmuxattrs+=("underscore") ;;
+				5) tmuxattrs+=("blink") ;;
+				7) tmuxattrs+=("reverse") ;;
+				30) tmuxattrs+=("fg=black") ;;
+				31) tmuxattrs+=("fg=red") ;;
+				32) tmuxattrs+=("fg=green") ;;
+				33) tmuxattrs+=("fg=yellow") ;;
+				34) tmuxattrs+=("fg=blue") ;;
+				35) tmuxattrs+=("fg=magenta") ;;
+				36) tmuxattrs+=("fg=cyan") ;;
+				37) tmuxattrs+=("fg=white") ;;
+				39) tmuxattrs+=("fg=default") ;;
+				40) tmuxattrs+=("bg=black") ;;
+				41) tmuxattrs+=("bg=red") ;;
+				42) tmuxattrs+=("bg=green") ;;
+				43) tmuxattrs+=("bg=yellow") ;;
+				44) tmuxattrs+=("bg=blue") ;;
+				45) tmuxattrs+=("bg=magenta") ;;
+				46) tmuxattrs+=("bg=cyan") ;;
+				47) tmuxattrs+=("bg=white") ;;
+				49) tmuxattrs+=("bg=default") ;;
+			esac
+		done
+
+		echo -n "#[$(IFS=,; echo "${tmuxattrs[*]}")]"
+
+		lastidx=$(($end + 1))
+		idx=$(strpos "$input" "$esc" $lastidx)
+	done
+
+	echo ${input:lastidx}
+}
+
+type starship &> /dev/null || die $E_INTERNAL "Command not found: starship"
+cd $pane_current_path
+
+replace_codes "$(STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml" STARSHIP_SHELL=sh starship prompt | tail -n +2 | head -n 1)"

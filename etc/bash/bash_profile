@@ -1,0 +1,2 @@
+. "$XDG_CONFIG_HOME/bash/bash_env"
+. "$XDG_CONFIG_HOME/sh/profile"

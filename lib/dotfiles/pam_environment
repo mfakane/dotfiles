@@ -1,0 +1,18 @@
+# Workaround for Debian not defining $HOME
+HOME					DEFAULT="/home/@{PAM_USER}" OVERRIDE="@{HOME}"
+
+# XDG basedir paths
+XDG_CONFIG_HOME			DEFAULT="${HOME}/.local/etc"
+XDG_CACHE_HOME			DEFAULT="${HOME}/.local/var/cache"
+XDG_DATA_HOME			DEFAULT="${HOME}/.local/share"
+
+# XDG basedir inspired paths (non-standard)
+XDG_BIN_HOME			DEFAULT="${HOME}/.local/bin"
+XDG_LIB_HOME			DEFAULT="${HOME}/.local/lib"
+XDG_STATE_HOME			DEFAULT="${HOME}/.local/var/lib"
+XDG_LOG_HOME			DEFAULT="${HOME}/.local/var/log"
+
+# Fix various applications to respect the XDG basedir spec
+BASH_ENV				DEFAULT="${XDG_CONFIG_HOME}/bash/bash_env"
+ENV						DEFAULT="${XDG_CONFIG_HOME}/sh/env"
+ZDOTDIR					DEFAULT="${XDG_CONFIG_HOME}/zsh"

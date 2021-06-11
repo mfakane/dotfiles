@@ -1,0 +1,83 @@
+#!/bin/sh
+
+# Run a command from a wrapper.
+# Attemtps to call the second found command as a real command to avoid the wrapper calling it self.
+
+set -eu
+BASEDIR=$(cd $(dirname $0); pwd)
+BASENAME=$(basename $0)
+INCLUDES="$XDG_LIB_HOME/dotfiles/includes"
+
+. "$INCLUDES/die.sh"
+
+E_NOTFOUND=127
+
+help()
+{
+	cat <<- EOS
+	Usage: $SELFNAME [OPTION] ... COMMAND ...
+
+	  -h    display this help and exit
+	EOS
+}
+
+which_with_ignore()
+{
+	command=$1; shift
+	
+	if [ $# -gt 0 ]; then
+		ignored=$1; shift
+	fi
+
+	for path in $(which -a $command); do
+		if ! realpath=$(readlink -f "$path"); then
+			continue
+		fi
+
+		case "$ignored" in (*:$realpath:*)
+			continue
+		esac
+
+		if [ -x "$realpath" ]; then
+			echo "$realpath"
+			return 0
+		fi
+	done
+	return 127
+}
+
+# Options
+ignored=":"
+test=false
+verbose=false
+while getopts hi:tv OPT; do
+	case "$OPT" in
+		h) help; exit $E_SUCCESS ;;
+		i) ignored="$ignored$OPTARG:" ;;
+		t) test=true ;;
+		v) verbose=true ;;
+	esac
+done
+shift $((OPTIND - 1))
+
+
+[ $# -gt 0 ] || die $E_USER "Please specify a command"
+command=$1; shift
+
+case "$command" in (*/*)
+	die $E_USER "Please specify a command, not a path"
+esac
+
+if ! wrapper_path=$(which_with_ignore "$command" "$ignored"); then
+	die $E_NOTFOUND "Command not found: $command"
+fi
+
+if ! real_path=$(which_with_ignore "$command" ":$wrapper_path$ignored"); then
+	$test && exit 1
+	die $E_NOTFOUND "Wrapper not unwrappable: $wrapper_path"
+fi
+
+$($verbose || $test) && echo $real_path
+$test && exit 0
+
+exec "$real_path" $@

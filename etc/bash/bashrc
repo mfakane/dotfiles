@@ -1,0 +1,11 @@
+. "$XDG_CONFIG_HOME/bash/bash_env"
+. "$XDG_CONFIG_HOME/sh/interactive"
+
+if [[ -d "$XDG_CONFIG_HOME/bash/bashrc.d" ]]; then
+	for script in "$XDG_CONFIG_HOME/bash/bashrc.d/"*.zsh; do
+		if [[ -r "$script" ]]; then
+			. $script
+		fi
+		unset script
+	done
+fi

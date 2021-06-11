@@ -1,48 +1,16 @@
 #!/bin/sh
 
-trap 'echo Error: $0:$LINENO stopped; exit 1' ERR INT
+trap 'echo "Fatal error: $0:$LINENO stopped" >&2; exit 1' ERR INT
 set -eu
+BASEDIR=$(cd $(dirname $0); pwd)
+BASENAME=$(basename $0)
+INCLUDES="$BASEDIR/lib/dotfiles/includes"
 
-cd $(dirname $0)
+. "$INCLUDES/die.sh"
 
-git --git-dir="$PWD/.git" submodule update -i
+DOTDIR=$BASEDIR
+cd $DOTDIR
 
-if [ ! -f ~/.zinit/zinit.zsh ]; then
-	git clone https://github.com/zdharma/zinit.git ~/.zinit
-fi
-
-for i in \
-	.nano \
-	.zsh \
-	.nanorc \
-	.tmux.conf \
-	.yaourtrc \
-	.zshenv \
-	.zshrc; do
-	ln -sf ./.dotfiles/$i ~/$i
+for script in "$DOTDIR/lib/dotfiles/install.d/"*.sh; do
+	. "$script"
 done
-
-# Install required packaged
-
-if type pacman &> /dev/null; then
-	# Arch Linux
-	sudo pacman -Sy --noconfirm \
-		bat \
-		exa
-elif type apt &> /dev/null; then
-	# Debian
-	sudo apt install -y \
-		bat \
-		exa
-elif type brew &> /dev/null; then
-	# Homebrew
-	sudo brew install \
-		bat \
-		exa
-fi
-
-# Install starship
-
-if ! type starship &> /dev/null; then
-	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
-fi

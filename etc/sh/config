@@ -1,0 +1,9 @@
+# Interactive and non-interactive shell configuration
+if [ -d "$XDG_CONFIG_HOME/sh/config.d" ]; then
+	for script in "$XDG_CONFIG_HOME/sh/config.d/"*.sh; do
+		if [ -r "$script" ]; then
+			. $script
+		fi
+		unset script
+	done
+fi
