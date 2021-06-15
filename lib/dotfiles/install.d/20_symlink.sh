@@ -20,6 +20,13 @@ link_with_backup() {
 }
 
 # Write in relative path here because busybox ln doesn't support -r option
-link_with_backup ".local/lib/dotfiles/pam_environment" ~/.pam_environment
-link_with_backup ".local/etc/bash/bash_profile" ~/.bash_profile
-link_with_backup ".local/etc/bash/bashrc" ~/.bashrc
+
+if type bash &> /dev/null; then
+	link_with_backup ".local/etc/bash/bash_profile" ~/.bash_profile
+	link_with_backup ".local/etc/bash/bashrc" ~/.bashrc
+fi
+
+# Don't create on qnap
+case "$(uname -r)" in (*-qnap);; (*)
+	link_with_backup ".local/lib/dotfiles/pam_environment" ~/.pam_environment
+esac
