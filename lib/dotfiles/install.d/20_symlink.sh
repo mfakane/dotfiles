@@ -16,9 +16,10 @@ link_with_backup() {
 	fi
 
 	echo "Linking $linkname -> $target"
-	ln -sr $target $linkname
+	ln -s $target $linkname
 }
 
-link_with_backup $XDG_LIB_HOME/dotfiles/pam_environment ~/.pam_environment
-link_with_backup $XDG_CONFIG_HOME/bash/bash_profile ~/.bash_profile
-link_with_backup $XDG_CONFIG_HOME/bash/bashrc ~/.bashrc
+# Write in relative path here because busybox ln doesn't support -r option
+link_with_backup ".local/lib/dotfiles/pam_environment" ~/.pam_environment
+link_with_backup ".local/etc/bash/bash_profile" ~/.bash_profile
+link_with_backup ".local/etc/bash/bashrc" ~/.bashrc

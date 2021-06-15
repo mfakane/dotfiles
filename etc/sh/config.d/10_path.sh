@@ -12,6 +12,9 @@ pathmunge() {
 	esac
 }
 
+# Optware
+[ -d "/opt/bin" ] && pathmunge "/opt/bin"
+
 pathmunge "$XDG_BIN_HOME"
 pathmunge "$XDG_LIB_HOME/dotfiles/wrappers"
 

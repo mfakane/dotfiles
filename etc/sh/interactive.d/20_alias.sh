@@ -20,3 +20,8 @@ alias crontab='crontab -i'
 alias jobs='jobs -l'
 alias grep='grep --color=auto'
 alias ssh='ssh -A'
+
+# QNAP Turbo NAS specific alias
+case "$(uname -r)" in (*-qnap)
+	alias sudo='sudo -u admin'
+esac
