@@ -1,2 +1,2 @@
 #!/bin/sh
-unwrap nano -C "$XDG_STATE_HOME/nano" -f "$XDG_CONFIG_HOME/nano/nanorc" $@
+unwrap nano -f "$XDG_CONFIG_HOME"/nano/nanorc "$@"
