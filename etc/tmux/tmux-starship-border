@@ -29,10 +29,7 @@ replace_codes() {
 
 		local end=$(strpos "$input" "m" $idx)
 
-		IFS_ORIG="$IFS"
-		IFS=";"
-		local seq=(${input:idx+2:end-idx-2})
-		IFS="$IFS_ORIG"
+		IFS=";" read -r -a seq <<< "${input:idx+2:end-idx-2}"
 
 		local tmuxattrs=()
 
