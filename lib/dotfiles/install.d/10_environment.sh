@@ -1,13 +1,11 @@
 # Temporary apply pam_environment as shell variables
 
-if [ -z "${XDG_CONFIG_HOME:=}" ]; then
-	pam_environment_file="$INCLUDES/../pam_environment"
+pam_environment_file="$INCLUDES/../pam_environment"
 
-	[ -r "$pam_environment_file" ] || die $E_INTERNAL "Cannot read $pam_environment_file"
-	eval "$(sed -r 's/\s+DEFAULT=/=/g' "$pam_environment_file" | grep -Po '^(?!#|HOME=).+')"
+[ -r "$pam_environment_file" ] || die $E_INTERNAL "Cannot read $pam_environment_file"
+eval "$(sed 's/[[:space:]]*DEFAULT=/=/g' "$pam_environment_file" | grep -vE '^#|^HOME|^$')"
 
-	unset pam_environment_file
-fi
+unset pam_environment_file
 
 if [ -z "${IS_XDG_CONF_LOADED:=}" ]; then
 	xdg_conf_file="$XDG_CONFIG_HOME/environment.d/xdg.conf"

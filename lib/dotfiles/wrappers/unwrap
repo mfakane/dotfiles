@@ -9,6 +9,7 @@ BASENAME=$(basename $0)
 INCLUDES="$XDG_LIB_HOME/dotfiles/includes"
 
 . "$INCLUDES/die.sh"
+. "$INCLUDES/readlink_f.sh"
 
 E_NOTFOUND=127
 
@@ -30,7 +31,7 @@ which_with_ignore()
 	fi
 
 	for path in $(which -a $command); do
-		if ! realpath=$(readlink -f "$path"); then
+		if ! realpath=$(readlink_f "$path"); then
 			continue
 		fi
 

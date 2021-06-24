@@ -1,10 +1,12 @@
 # Install compatibility symlinks to the home dir
 
+. "$INCLUDES/readlink_f.sh"
+
 link_with_backup() {
 	target=$1
 	linkname=$2
 
-	if [ "$(readlink -f $target)" = "$(readlink -f $linkname)" ]; then
+	if [ "$(readlink_f $target)" = "$(readlink_f $linkname)" ]; then
 		return
 	fi
 
