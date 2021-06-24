@@ -9,11 +9,11 @@ if [ -n "$packages" ]; then
 		echo "Installing packages"
 		echo "> sudo pacman -Sy --noconfirm $packages"
 		sudo pacman -Sy --noconfirm $packages
-	elif type apt &> /dev/null; then
+	elif type apt-get &> /dev/null; then
 		# Debian
 		echo "Installing packages"
-		echo "> sudo apt install -y $packages"
-		sudo apt install -y $packages
+		echo "> sudo apt-get install -y $packages"
+		sudo apt-get install -y $packages
 	elif type brew &> /dev/null; then
 		# Homebrew
 		echo "Installing packages"
