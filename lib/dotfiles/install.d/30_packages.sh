@@ -1,7 +1,7 @@
 packages=""
 
-type bat &> /dev/null || packages="$packages bat"
-type exa &> /dev/null || packages="$packages exa"
+type bat &> /dev/null || packages="bat $packages"
+type exa &> /dev/null || packages="exa $packages"
 
 if [ -n "$packages" ]; then
 	if type pacman &> /dev/null; then
