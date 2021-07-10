@@ -1,4 +1,4 @@
-if type exa &> /dev/null; then
+if type exa > /dev/null 2>&1; then
 	alias ls='exa -alFhg --git --group-directories-first'
 else
 	case "$OSTYPE" in
@@ -7,9 +7,9 @@ else
 	esac
 fi
 
-if type bat &> /dev/null; then
+if type bat > /dev/null 2>&1; then
 	alias cat='bat'
-elif type batcat &> /dev/null; then
+elif type batcat > /dev/null 2>&1; then
 	alias bat='batcat'
 	alias cat='batcat'
 fi

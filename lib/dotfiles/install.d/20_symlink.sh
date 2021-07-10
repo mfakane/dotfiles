@@ -23,7 +23,7 @@ link_with_backup() {
 
 # Write in relative path here because busybox ln doesn't support -r option
 
-if type bash &> /dev/null; then
+if type bash > /dev/null 2>&1; then
 	link_with_backup ".local/etc/bash/bash_profile" ~/.bash_profile
 	link_with_backup ".local/etc/bash/bashrc" ~/.bashrc
 fi

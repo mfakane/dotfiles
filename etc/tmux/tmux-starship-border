@@ -72,7 +72,7 @@ replace_codes() {
 	echo ${input:lastidx}
 }
 
-type starship &> /dev/null || die $E_INTERNAL "Command not found: starship"
+type starship > /dev/null 2>&1 || die $E_INTERNAL "Command not found: starship"
 cd $pane_current_path
 
 replace_codes "$(STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml" STARSHIP_SHELL=sh starship prompt | tail -n +2 | head -n 1)"
