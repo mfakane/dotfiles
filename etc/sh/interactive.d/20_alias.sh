@@ -21,7 +21,7 @@ alias jobs='jobs -l'
 alias grep='grep --color=auto'
 alias ssh='ssh -A'
 
-# QNAP Turbo NAS specific alias
-case "$(uname -r)" in (*-qnap)
-	alias sudo='sudo -u admin'
-esac
+# sudo alias for systems that don't use root as the name of the super user
+if ! id root > /dev/null 2>&1; then
+	alias sudo="sudo -u $(getent passwd 0 | cut -d: -f1)"
+fi
