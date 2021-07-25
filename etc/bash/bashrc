@@ -5,7 +5,7 @@
 . "$XDG_CONFIG_HOME/sh/interactive"
 
 if [[ -d "$XDG_CONFIG_HOME/bash/bashrc.d" ]]; then
-	for script in "$XDG_CONFIG_HOME/bash/bashrc.d/"*.zsh; do
+	for script in "$XDG_CONFIG_HOME/bash/bashrc.d/"*.bash; do
 		if [[ -r "$script" ]]; then
 			. $script
 		fi
