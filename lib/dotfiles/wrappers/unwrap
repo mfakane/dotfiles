@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 # Run a command from a wrapper.
 # Attemtps to call the second found command as a real command to avoid the wrapper calling it self.
 
 set -eu
-BASEDIR=$(cd $(dirname $0); pwd)
-BASENAME=$(basename $0)
+SCRIPTDIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
+SCRIPTNAME=$(basename ${BASH_SOURCE:-$0})
 INCLUDES="$XDG_LIB_HOME/dotfiles/includes"
 
 . "$INCLUDES/die.sh"
@@ -62,14 +62,16 @@ done
 shift $((OPTIND - 1))
 
 
-[ $# -gt 0 ] || die $E_USER "Please specify a command"
+[[ $# -gt 0 ]] || die $E_USER "Please specify a command"
 command=$1; shift
 
 case "$command" in (*/*)
 	die $E_USER "Please specify a command, not a path"
 esac
 
-if ! wrapper_path=$(which_with_ignore "$command" "$ignored"); then
+wrapper_path="$SCRIPTDIR/$command"
+
+if ! [[ -x "$wrapper_path" ]]; then
 	die $E_NOTFOUND "Command not found: $command"
 fi
 
