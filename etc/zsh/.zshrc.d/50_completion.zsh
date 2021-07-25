@@ -1,6 +1,12 @@
 # Ensure history directory exists
 mkdir -p "$XDG_CACHE_HOME/zsh"
 
+# Load asdf completions
+if [ -d "$XDG_OPT_HOME/asdf-vm" ]; then
+	fpath=($XDG_OPT_HOME/asdf-vm/completions $fpath)
+fi
+
+
 autoload -Uz compinit
 compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
 

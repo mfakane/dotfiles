@@ -15,6 +15,12 @@ pathmunge() {
 # Optware
 [ -d "/opt/bin" ] && pathmunge "/opt/bin"
 
+# asdf
+if [ -d "$XDG_OPT_HOME/asdf-vm" ]; then
+	pathmunge "$XDG_OPT_HOME/asdf-vm/bin"
+	pathmunge "$ASDF_DATA_DIR/shims"
+fi
+
 pathmunge "$XDG_BIN_HOME"
 pathmunge "$XDG_LIB_HOME/dotfiles/wrappers"
 

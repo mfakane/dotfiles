@@ -6,11 +6,14 @@ XDG_CONFIG_HOME			DEFAULT="${HOME}/.local/etc"
 XDG_CACHE_HOME			DEFAULT="${HOME}/.local/var/cache"
 XDG_DATA_HOME			DEFAULT="${HOME}/.local/share"
 
-# XDG basedir inspired paths (non-standard)
+# XDG basedir paths (non-standard)
 XDG_BIN_HOME			DEFAULT="${HOME}/.local/bin"
 XDG_LIB_HOME			DEFAULT="${HOME}/.local/lib"
 XDG_STATE_HOME			DEFAULT="${HOME}/.local/var/lib"
 XDG_LOG_HOME			DEFAULT="${HOME}/.local/var/log"
+
+# XDG-like basedir paths (non-standard)
+XDG_OPT_HOME			DEFAULT="${HOME}/.local/opt"
 
 # Fix various applications to respect the XDG basedir spec
 BASH_ENV				DEFAULT="${XDG_CONFIG_HOME}/sh/config"

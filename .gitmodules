@@ -7,3 +7,6 @@
 [submodule "etc/nano/nanorc.d"]
 	path = etc/nano/nanorc.d
 	url = https://github.com/scopatz/nanorc.git
+[submodule "opt/asdf-vm"]
+	path = opt/asdf-vm
+	url = https://github.com/asdf-vm/asdf.git

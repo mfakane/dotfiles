@@ -1,0 +1,12 @@
+/*
+!/.gitignore
+!/bin/
+!/etc/
+!/lib/
+!/opt/
+!/share/
+!/var/
+!/.gitmodules
+!/install.sh
+!/LICENSE.txt
+!/README.md

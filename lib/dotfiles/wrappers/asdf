@@ -1,0 +1,2 @@
+#!/bin/sh
+$XDG_OPT_HOME/asdf-vm/bin/asdf "$@"
