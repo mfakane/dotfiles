@@ -1,4 +1,5 @@
 # Interactive shell configuration
+
 if [ -d "$XDG_CONFIG_HOME/sh/interactive.d" ]; then
 	for script in "$XDG_CONFIG_HOME/sh/interactive.d/"*.sh; do
 		if [ -r "$script" ]; then

@@ -1,4 +1,6 @@
-# $XDG_CONFIG_HOME might be not set here on WSL Ubuntu
+# Interactive shell configuration for bash
+
+# $XDG_CONFIG_HOME might be not set here
 . "$HOME/.local/etc/sh/config"
 . "$XDG_CONFIG_HOME/sh/interactive"
 

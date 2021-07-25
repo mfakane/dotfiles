@@ -1,1 +1,4 @@
 # Login shell configuration
+
+# $XDG_CONFIG_HOME might be not set here, so use $HOME
+. "$HOME/.local/etc/sh/config"

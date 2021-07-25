@@ -1,11 +1,6 @@
-# QNAP Turbo NAS support
-# If logged in with preinstalled bash, launch optware bash instead
-if [[ -x /opt/bin/bash ]] && [[ "$BASH" == "/bin/bash" ]]; then
-	exec /opt/bin/bash -l
-	exit
-fi
+# Login shell configuration for bash
 
-# $XDG_CONFIG_HOME might be not set here on WSL Ubuntu
+# $XDG_CONFIG_HOME might be not set here, so use $HOME
 . "$HOME/.local/etc/sh/config"
 . "$XDG_CONFIG_HOME/sh/profile"
 . "$XDG_CONFIG_HOME/bash/bashrc"

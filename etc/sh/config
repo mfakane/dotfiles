@@ -1,5 +1,6 @@
 # Interactive and non-interactive shell configuration
-# $XDG_CONFIG_HOME might be not set here on WSL Ubuntu
+
+# $XDG_CONFIG_HOME might be not set here
 if [ -d "$HOME/.local/etc/sh/config.d" ]; then
 	for script in "$HOME/.local/etc/sh/config.d/"*.sh; do
 		if [ -r "$script" ]; then
