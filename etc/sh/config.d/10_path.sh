@@ -22,8 +22,9 @@ if [ -d "$XDG_OPT_HOME/asdf-vm" ]; then
 fi
 
 # vscode-server
-if [ -d ~/.vscode-server/bin/*/bin ]; then
-	pathmunge $(eval "echo ~/.vscode-server/bin/*/bin")
+VSCODE_SERVER_BIN_DIR=$(eval "echo ~/.vscode-server/bin/*/bin" 2> /dev/null)
+if [ -d "$VSCODE_SERVER_BIN_DIR" ]; then
+	pathmunge "$VSCODE_SERVER_BIN_DIR"
 fi
 
 pathmunge "$XDG_BIN_HOME"
