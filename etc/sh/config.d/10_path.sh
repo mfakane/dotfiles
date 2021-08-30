@@ -21,6 +21,11 @@ if [ -d "$XDG_OPT_HOME/asdf-vm" ]; then
 	pathmunge "$ASDF_DATA_DIR/shims"
 fi
 
+# vscode-server
+if [ -d ~/.vscode-server/bin/*/bin ]; then
+	pathmunge $(eval "echo ~/.vscode-server/bin/*/bin")
+fi
+
 pathmunge "$XDG_BIN_HOME"
 pathmunge "$XDG_LIB_HOME/dotfiles/wrappers"
 
