@@ -6,6 +6,8 @@ link_with_backup() {
 	target=$1
 	linkname=$2
 
+	cd "$(dirname "$linkname")"
+
 	if [ "$(readlink_f $target)" = "$(readlink_f $linkname)" ]; then
 		return
 	fi
