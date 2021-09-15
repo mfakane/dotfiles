@@ -28,6 +28,10 @@ if type bash > /dev/null 2>&1; then
 	link_with_backup ".local/etc/bash/bashrc" ~/.bashrc
 fi
 
+if type zsh > /dev/null 2>&1; then
+	link_with_backup ".local/etc/zsh/.zshenv" ~/.zshenv
+fi
+
 # Don't create on qnap
 case "$(uname -r)" in (*-qnap);; (*)
 	link_with_backup ".local/lib/dotfiles/pam_environment" ~/.pam_environment
