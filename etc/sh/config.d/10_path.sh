@@ -1,15 +1,11 @@
 pathmunge() {
-	case ":$PATH:" in
-		*:"$1":*)
-			;;
-		*)
-			if [ "$2" = "after" ]; then
-				PATH="$PATH:$1"
-			else
-				PATH="$1:$PATH"
-			fi
-			;;
-	esac
+	PATH=$(echo "$PATH" | sed -E "s#(^|:)$1(:|\$)#:#g" | sed -E "s/^:|:$//g")
+
+	if [ "$2" = "after" ]; then
+		PATH="$PATH:$1"
+	else
+		PATH="$1:$PATH"
+	fi
 }
 
 # Optware

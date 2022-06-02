@@ -1,2 +1,6 @@
 #!/bin/sh
-unwrap nano -f "$XDG_CONFIG_HOME"/nano/nanorc "$@"
+if asdf which nano > /dev/null 2>&1; then
+	asdf exec nano -f "$XDG_CONFIG_HOME"/nano/nanorc "$@"
+else
+	unwrap nano -f "$XDG_CONFIG_HOME"/nano/nanorc "$@"
+fi
