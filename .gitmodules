@@ -1,12 +1,12 @@
 [submodule "etc/tmux/plugins/tpm"]
 	path = etc/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
-[submodule "etc/zsh/zinit"]
-	path = etc/zsh/zinit
-	url = https://github.com/zdharma/zinit.git
 [submodule "etc/nano/nanorc.d"]
 	path = etc/nano/nanorc.d
 	url = https://github.com/scopatz/nanorc.git
 [submodule "opt/asdf-vm"]
 	path = opt/asdf-vm
 	url = https://github.com/asdf-vm/asdf.git
+[submodule "etc/zsh/zinit"]
+	path = etc/zsh/zinit
+	url = https://github.com/zdharma-continuum/zinit.git
