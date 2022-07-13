@@ -25,6 +25,11 @@ if [ "${TERM_PROGRAM:-}" = "vscode" ]; then
 	fi
 fi
 
+# Homebrew
+if [ -x "/opt/homebrew/bin/brew" ]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 pathmunge "$XDG_BIN_HOME"
 pathmunge "$XDG_LIB_HOME/dotfiles/wrappers"
 
