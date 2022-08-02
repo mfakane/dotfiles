@@ -18,4 +18,6 @@ if [[ -r "$XDG_CONFIG_HOME/zsh/zinit/zinit.zsh" ]]; then
 	zinit light hlissner/zsh-autopair
 
 	zinit light zsh-users/zsh-history-substring-search
+
+	zinit light chitoku-k/fzf-zsh-completions
 fi

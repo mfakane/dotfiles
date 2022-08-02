@@ -1,17 +1,10 @@
 # fzf specific config
 
-if (( $+commands[fzf] )); then
-
-	source /usr/share/fzf/completion.zsh
-	source /usr/share/fzf/key-bindings.zsh 
-
-fi
-
 # Show fzf if installed, otherwise use grep for querying.
 function __suggest_if_fzf() {
 	if (( $+commands[fzf] )); then
 		local query=$([[ $# -ne 0 ]] && echo "-q $@")
-		$(__fzfcmd) -e --height ${FZF_TMUX_HEIGHT:-40%} -1 $query
+		fzf -e --height ${FZF_TMUX_HEIGHT:-40%} -1 $query
 	else
 		if [[ $# -ne 0 ]]; then
 			grep $@
