@@ -17,6 +17,12 @@ if [ -d "$XDG_OPT_HOME/asdf-vm" ]; then
 	pathmunge "$ASDF_DATA_DIR/shims"
 fi
 
+# Set GOPATH to ~/repo if exists
+if [ -d "$HOME/repos/src" ]; then
+	export GOPATH="$HOME/repos"
+	[ -d "$HOME/repos/src" ] && pathmunge "$HOME/repos/bin"
+fi
+
 pathmunge "$XDG_BIN_HOME"
 pathmunge "$XDG_LIB_HOME/dotfiles/wrappers"
 
