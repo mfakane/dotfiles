@@ -6,18 +6,17 @@ if [[ -r "$XDG_CONFIG_HOME/zsh/zinit/zinit.zsh" ]]; then
 
 	. "$XDG_CONFIG_HOME/zsh/zinit/zinit.zsh"
 
-	zinit ice blockf atpull'zinit creinstall -q .'
+	zinit ice wait lucid blockf atpull'zinit creinstall -q .'
 	zinit light zsh-users/zsh-completions
 
-	zinit ice atload'_zsh_autosuggest_start'
+	zinit ice wait lucid atload'_zsh_autosuggest_start'
 	zinit light zsh-users/zsh-autosuggestions
 
-	zinit ice atinit'zicompinit; zicdreplay'
-	zinit light zdharma/fast-syntax-highlighting
+	zinit ice wait lucid atinit'zicompinit; zicdreplay'
+	zinit light zdharma-continuum/fast-syntax-highlighting
 
-	zinit light hlissner/zsh-autopair
-
-	zinit light zsh-users/zsh-history-substring-search
-
-	zinit light chitoku-k/fzf-zsh-completions
+	zinit wait lucid light-mode for \
+		hlissner/zsh-autopair \
+		zsh-users/zsh-history-substring-search \
+		chitoku-k/fzf-zsh-completions
 fi
