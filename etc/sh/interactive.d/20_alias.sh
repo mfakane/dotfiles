@@ -14,8 +14,6 @@ elif type batcat > /dev/null 2>&1; then
 	alias cat='batcat'
 fi
 
-type github-copilot-cli > /dev/null 2>&1 && eval "$(github-copilot-cli alias -- "$0")"
-
 alias df='df -h'
 alias free='free -h'
 alias crontab='crontab -i'
