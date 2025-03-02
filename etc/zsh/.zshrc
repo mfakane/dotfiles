@@ -8,3 +8,6 @@ if [[ -d "$XDG_CONFIG_HOME/zsh/.zshrc.d" ]]; then
 		unset script
 	done
 fi
+
+# bun completions
+[ -s "/home/fumika/.bun/_bun" ] && source "/home/fumika/.bun/_bun"

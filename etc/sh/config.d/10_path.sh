@@ -12,8 +12,7 @@ pathmunge() {
 [ -d "/opt/bin" ] && pathmunge "/opt/bin"
 
 # asdf
-if [ -d "$XDG_OPT_HOME/asdf-vm" ]; then
-	pathmunge "$XDG_OPT_HOME/asdf-vm/bin"
+if [ -d "$ASDF_DATA_DIR/shims" ]; then
 	pathmunge "$ASDF_DATA_DIR/shims"
 fi
 
